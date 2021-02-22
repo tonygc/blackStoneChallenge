@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import apis from '../api/api'
 import moment from "moment"
+import { BlackButton } from './styled-buttons'
 
 export const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -64,7 +65,8 @@ class CreateTask extends React.Component {
                     this.setState({...this.state, goTasks:true});    
                 }
             }).catch(err=>{
-                this.setState({...this.state, messageError:err.response.data.error});
+                if(err.response!=undefined)
+                    this.setState({...this.state, messageError:err.response.data.error});
             });
         });
         
@@ -80,8 +82,14 @@ class CreateTask extends React.Component {
             return <Redirect to='/tasks' />
         }
         return (
-            <Box mt={5}>
+            <Box mt={2}>
             <Grid container spacing={2}>
+            <Grid item lg={10} md={9} sm={7} xs={"auto"}></Grid>
+                <Grid item lg={2} md={3} sm={5} xs={12}>
+                    <Box align="right" mr={1} mb={1}>
+                        <BlackButton fullWidth size="small" variant="contained">BlackStone Challenge</BlackButton>
+                    </Box>
+                </Grid>
                 <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
                 <Grid item lg={4} md={8} sm={10} xs={12}>
                 <Typography variant="h4" component="h2" align="center">
@@ -144,6 +152,17 @@ class CreateTask extends React.Component {
                     />
                     </Grid>
                     <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
+                        <Box display="flex" justifyContent="center">
+                        <Typography color="secondary" variant="h6">
+                            {this.state.messageError}
+                        </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+
                     <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
                     <Grid item lg={4} md={8} sm={10} xs={12}>
                     <Grid container>

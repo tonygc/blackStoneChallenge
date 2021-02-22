@@ -33,6 +33,16 @@ class Login extends React.Component {
     messageError:""
   }
 
+  componentDidMount() {
+    console.log("EMAIL",window.sessionStorage.getItem("email_account"));
+    if(window.sessionStorage.getItem("email_account")){
+      this.setState({...this.state, email: window.sessionStorage.getItem("email_account")},(ev)=>{
+        window.sessionStorage.removeItem("email_account")
+      });
+      
+    }
+  }
+
   handleChange = (prop) => (event) => {
     this.setState({ ...this.state, [prop]: event.target.value });
   };
@@ -122,6 +132,7 @@ class Login extends React.Component {
                 style={margin}
                 id="email"
                 name="email"
+                value={this.state.email}
                 label="User"
                 onChange={this.handleChangeEmail}
                 error={this.state.validateEmail}
@@ -170,7 +181,7 @@ class Login extends React.Component {
             <Grid item lg={4} md={3} sm={1} xs={"auto"}></Grid>
             <Grid item lg={4} md={6} sm={10} xs={12}>
             <Box display="flex" justifyContent="center">
-              <Typography color="secondary" variant="button">
+              <Typography color="secondary" variant="h6">
                 {this.state.messageError}
               </Typography>
               </Box>

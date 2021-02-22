@@ -10,6 +10,7 @@ import {AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 import { Redirect } from 'react-router-dom';
 import apis from '../api/api'
 import validateEmail from "../utility/auxiliars";
+import { BlackButton } from './styled-buttons'
 
 class NewAccount extends React.Component {
     state={
@@ -61,9 +62,14 @@ class NewAccount extends React.Component {
                 last_name_b:this.state.mothers_last_name
             };
             apis.new_user(data_user).then(response=>{
-                console.log("response create user->", response);
+                //console.log("response create user->", response);
+                if(response.data.success){
+                    window.sessionStorage.setItem("email_account", this.state.email);
+                    this.onCancel();
+                }
             }).catch(err=>{
-                this.setState({...this.state, messageError:err.response.data.error});
+                if(err.response!=undefined)
+                    this.setState({...this.state, messageError:err.response.data.error});
             });
         });
         
@@ -79,17 +85,23 @@ class NewAccount extends React.Component {
             return <Redirect to='/' />
         }
         return (
-            <Box mt={5}>
+            <Box>
             <Grid container spacing={2}>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
+                <Grid item lg={10} md={9} sm={7} xs={"auto"}></Grid>
+                <Grid item lg={2} md={3} sm={5} xs={12}>
+                    <Box align="right" mr={1} mb={1}>
+                        <BlackButton fullWidth size="small" variant="contained">BlackStone Challenge</BlackButton>
+                    </Box>
+                </Grid>
+                <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                <Grid item lg={4} md={8} sm={10} xs={12}>
                 <Typography variant="h4" component="h2" align="center">
                     Create Your User Account
                 </Typography>
                 </Grid>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
+                <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                <Grid item lg={4} md={8} sm={10} xs={12}>
                     <TextField
                         fullWidth
                         error={this.state.req_name}
@@ -102,9 +114,9 @@ class NewAccount extends React.Component {
                         }}
                     />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <TextField
                             fullWidth
                             error={this.state.req_last_name}
@@ -117,9 +129,9 @@ class NewAccount extends React.Component {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <TextField
                             fullWidth
                             id="mothers_last_name"
@@ -131,9 +143,9 @@ class NewAccount extends React.Component {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <TextField
                             fullWidth
                             error={this.state.req_email}
@@ -146,9 +158,9 @@ class NewAccount extends React.Component {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <TextField
                             fullWidth
                             id="password"
@@ -162,9 +174,9 @@ class NewAccount extends React.Component {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <TextField
                             fullWidth
                             type="password"
@@ -178,18 +190,18 @@ class NewAccount extends React.Component {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                         <Box display="flex" justifyContent="center">
-                        <Typography color="secondary" variant="button">
+                        <Typography color="secondary" variant="h6">
                             {this.state.messageError}
                         </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}></Grid>
-                    <Grid item xs={4}>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
                     <Grid container>
                         <Grid item xs={6}>
                             <Button variant="contained" color="secondary" size="large" onClick={this.onCancel}>
@@ -198,7 +210,7 @@ class NewAccount extends React.Component {
                         </Grid>
                         <Grid item xs={6}>
                             <Box display="flex" justifyContent="flex-end">
-                                <Button onClick={this.handleSubmit} variant="contained" color="primary" size="large" onClick={this.onSubmit}>
+                                <Button variant="contained" color="primary" size="large" onClick={this.onSubmit}>
                                     Save
                                 </Button>
                             </Box>

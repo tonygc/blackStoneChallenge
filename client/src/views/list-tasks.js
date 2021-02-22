@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom';
 import apis from '../api/api'
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import { BlackButton } from './styled-buttons'
 
 export const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -45,7 +46,7 @@ export const StyledMenu = withStyles({
     },
   }))(MenuItem);
 
-class ListTasks extends React.Component {
+  class ListTasks extends React.Component {
     componentDidMount() {
         let string_data = window.sessionStorage.getItem("data_user");
         //console.log("componentDidMount user_data", string_data);
@@ -140,7 +141,7 @@ class ListTasks extends React.Component {
                     </div>
                   ),
                 renderCell: (params) => (
-                    params.value===true?<CheckBoxIcon fontSize="large" />:<CheckBoxOutlineBlankIcon onClick={this.handleConfirmTask} fontSize="large"/>
+                    params.value===true?<CheckBoxIcon fontSize="large" />:<CheckBoxOutlineBlankIcon style={{cursor:"pointer"}} onClick={this.handleConfirmTask} fontSize="large"/>
                   )
             }
             // {
@@ -200,7 +201,13 @@ class ListTasks extends React.Component {
         return(
             <Box mt={1}>
                 <Grid container>
-                    <Grid item xs={8}>
+                <Grid item lg={10} md={9} sm={7} xs={"auto"}></Grid>
+                <Grid item lg={2} md={3} sm={5} xs={12}>
+                        <Box align="right" mr={1} mb={1}>
+                            <BlackButton fullWidth size="small" variant="contained">BlackStone Challenge</BlackButton>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={10} md={10} sm={8} xs={12}>
                         <Box ml={10}>
                         <Typography variant="h2" component="h2">
                             Tasks List
@@ -212,9 +219,10 @@ class ListTasks extends React.Component {
                         </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Box align="right" mr={1}>
+                    <Grid item lg={2} md={2} sm={4} xs={12}>
+                        <Box align="right" mr={1} mb={1}>
                             <Button
+                                fullWidth
                                 aria-controls="customized-menu"
                                 aria-haspopup="true"
                                 variant="contained"
