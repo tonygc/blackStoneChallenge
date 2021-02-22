@@ -66,7 +66,9 @@ class CreateTask extends React.Component {
                 }
             }).catch(err=>{
                 if(err.response!=undefined)
-                    this.setState({...this.state, messageError:err.response.data.error});
+                    this.setState({...this.state, messageError: err.response.data.error});
+                else
+                    this.setState({...this.state, messageError: "No data connection"});
             });
         });
         

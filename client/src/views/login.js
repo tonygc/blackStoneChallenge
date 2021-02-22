@@ -89,7 +89,10 @@ class Login extends React.Component {
          }
       }).catch(err=>{
         //console.log("error message!", err.response.data);
-        this.setState({...this.state, messageError: err.response.data.error});
+        if(err.response!=undefined)
+          this.setState({...this.state, messageError: err.response.data.error});
+        else
+          this.setState({...this.state, messageError: "No data connection"});
       });
     }
   };

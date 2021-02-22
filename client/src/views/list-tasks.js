@@ -75,7 +75,10 @@ export const StyledMenu = withStyles({
             }
             
         }).catch(err=>{
-            console.log("error get tasks!", err.response);
+            if(err.response!=undefined)
+                this.setState({...this.state, messageError: err.response.data.error});
+            else
+                this.setState({...this.state, messageError: "No data connection"});
         });
     }
     componentWillUnmount() {
@@ -187,7 +190,10 @@ export const StyledMenu = withStyles({
                 this.refreshTasks();
             }
         }).catch(err=>{
-            this.setState({...this.state, messageError:err.response.data.error});
+            if(err.response!=undefined)
+                this.setState({...this.state, messageError: err.response.data.error});
+            else
+                this.setState({...this.state, messageError: "No data connection"});
         });
     };
 
@@ -211,11 +217,6 @@ export const StyledMenu = withStyles({
                         <Box ml={10}>
                         <Typography variant="h2" component="h2">
                             Tasks List
-                        </Typography>
-                        </Box>
-                        <Box display="flex" justifyContent="center">
-                        <Typography color="secondary" variant="button">
-                            {this.state.messageError}
                         </Typography>
                         </Box>
                     </Grid>
@@ -260,6 +261,15 @@ export const StyledMenu = withStyles({
                             </StyledMenu>
                         </Box>
                     </Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
+                    <Grid item lg={4} md={8} sm={10} xs={12}>
+                        <Box display="flex" justifyContent="center">
+                        <Typography color="secondary" variant="h6">
+                            {this.state.messageError}
+                        </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
                 </Grid>
                 <Box height={600} width="100%">
                     <DataGrid 
