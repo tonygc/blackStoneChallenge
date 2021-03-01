@@ -5,8 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import apis from '../api/api'
 import moment from "moment"
-import { BlackButton } from './styled-buttons'
+import header from './custom-header';
 
+export const Header=header;
 export const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -88,9 +89,7 @@ class CreateTask extends React.Component {
             <Grid container spacing={2}>
             <Grid item lg={10} md={9} sm={7} xs={"auto"}></Grid>
                 <Grid item lg={2} md={3} sm={5} xs={12}>
-                    <Box align="right" mr={1} mb={1}>
-                        <BlackButton fullWidth size="small" variant="contained">BlackStone Challenge</BlackButton>
-                    </Box>
+                    <Header />
                 </Grid>
                 <Grid item lg={4} md={2} sm={1} xs={"auto"}></Grid>
                 <Grid item lg={4} md={8} sm={10} xs={12}>
